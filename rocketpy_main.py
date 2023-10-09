@@ -1,5 +1,6 @@
 from rocketpy import Environment, SolidMotor, Rocket, Flight
-
+from datetime import datetime
+from pytz import timezone
 
 """
 
@@ -25,3 +26,6 @@ https://docs.rocketpy.org/en/latest/user/rocket.html#adding-parachutes
 
 
 """
+easternTimeZone = timezone('EST')
+
+datetime.now(easternTimeZone)
