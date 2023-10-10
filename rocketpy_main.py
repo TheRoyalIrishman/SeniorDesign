@@ -1,6 +1,5 @@
 from rocketpy import Environment, SolidMotor, Rocket, Flight
-from datetime import datetime
-from pytz import timezone
+import datetime
 
 """
 
@@ -26,6 +25,14 @@ https://docs.rocketpy.org/en/latest/user/rocket.html#adding-parachutes
 
 
 """
-easternTimeZone = timezone('EST')
 
-datetime.now(easternTimeZone)
+tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+
+# temp value for now - this is Cincinnati (39.10 N, 84.51 W, 482 feet above sea level)
+rocketEnvironment = Environment(latitude=39.10, longitude=84.51, elevation=482)
+
+rocketEnvironment.set_date((tomorrow.year, tomorrow.month, tomorrow.day), timezone="EST")
+
+rocketEnvironment.set_atmospheric_model(type="Forecast", file="GFS")
+
+# rocketEnvironment.info()
