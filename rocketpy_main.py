@@ -42,7 +42,7 @@ rocketEnvironment.set_atmospheric_model(type="Forecast", file="GFS")
 rocketEnvironment.info()
 
 M2500 = SolidMotor(
-    thrust_source = r"C:\Users\CamsComputer\Desktop\School\SeniorYear\SeniorDesign\ProjectCode\SeniorDesign\AeroTech_M2500T.eng",
+    thrust_source = "AeroTech_M2500T.eng",
     burn_time = 3.9, # will burn for 3.9 seconds
     grain_number = 5, # num grains
     grain_separation = 0.005, # this is just a BS temp value for now - need to actually find it
@@ -59,7 +59,7 @@ M2500.info()
 
 m2500Rocket = Rocket(
     motor = M2500,
-    radius=140.716 / 2000, # this is just a BS temp value for now - need to actually find it
+    radius = 277 / 2000,
     mass=8.964, # this is just a BS temp value for now - need to actually find it
     inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
     inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
@@ -104,9 +104,9 @@ mainParachute = m2500Rocket.add_parachute(
     # the constants are current temp values - will fix later
     CdS=0.879,
     trigger=drogueTrigger,
-    samplingRate=105,
-    lag=1.5,
-    noise=(0, 8.3, 0.5)
+    samplingRate=105, # still need to ask about this
+    lag=1.5, # still need to ask about this
+    noise=(0, 8.3, 0.5) # still need to ask about this
 )
 
 testFlight = Flight(
