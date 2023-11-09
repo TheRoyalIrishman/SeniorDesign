@@ -47,26 +47,31 @@ M2500 = SolidMotor(
     grain_number = 5, # num grains
     grain_separation = 0.005, # this is just a BS temp value for now - need to actually find it
     grain_density = 2400, # this is just a BS temp value for now - need to actually find it
-    grain_outer_radius=88 / 2000, # this is just a BS temp value for now - need to actually find it
-    grain_initial_inner_radius=25/ 2000, # this is just a BS temp value for now - need to actually find it
-    grain_initial_height=198 / 1000, # this is just a BS temp value for now - need to actually find it
-    nozzle_radius=46.5 / 2000, # this is just a BS temp value for now - need to actually find it
-    throat_radius=17.4 / 2000, # this is just a BS temp value for now - need to actually find it
-    interpolation_method="linear"
+    grain_outer_radius= 88 / 2000, # this is just a BS temp value for now - need to actually find it
+    grain_initial_inner_radius = 25 / 2000, # this is just a BS temp value for now - need to actually find it
+    grain_initial_height = 0.150368,
+    nozzle_radius = 46.5 / 2000, # this is just a BS temp value for now - need to actually find it
+    throat_radius = 17.4 / 2000, # this is just a BS temp value for now - need to actually find it
+    interpolation_method="linear",
+    dry_mass = 2.4494, # kg
+    dry_inertia = (0.125, 0.125, 0.05),
+    grains_center_of_mass_position = 25 / 1000,
+    center_of_dry_mass_position = 25 / 1000
 )
 
 M2500.info()
 
 m2500Rocket = Rocket(
-    motor = M2500,
     radius = 277 / 2000,
     mass=8.964, # this is just a BS temp value for now - need to actually find it
-    inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
-    inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
+    # inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
+    # inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
     distanceRocketNozzle=-0.97, # this is just a BS temp value for now - need to actually find it
     distanceRocketPropellant=-0.372, # this is just a BS temp value for now - need to actually find it
     # put Drag On and Drag Off CSV files here - need to remember how to get ORK file to grab this info
 )
+
+m2500Rocket.add_motor(M2500);
 
 m2500Rocket.set_rail_buttons([-0.62, -0.96])
 
@@ -112,7 +117,7 @@ mainParachute = m2500Rocket.add_parachute(
 testFlight = Flight(
     rocket = m2500Rocket,
     environment = rocketEnvironment,
-    inclination = 85,
+    inclination = 90,
     heading = 0
 )
 
