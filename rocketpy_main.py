@@ -63,15 +63,19 @@ M2500.info()
 
 m2500Rocket = Rocket(
     radius = 277 / 2000,
-    mass=8.964, # this is just a BS temp value for now - need to actually find it
+    mass = 14.661, # this is mass without motors
     # inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
     # inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
-    distanceRocketNozzle=-0.97, # this is just a BS temp value for now - need to actually find it
-    distanceRocketPropellant=-0.372, # this is just a BS temp value for now - need to actually find it
+    # distanceRocketNozzle=-0.97, # this is just a BS temp value for now - need to actually find it
+    # distanceRocketPropellant=-0.372, # this is just a BS temp value for now - need to actually find it
     # put Drag On and Drag Off CSV files here - need to remember how to get ORK file to grab this info
+    inertia=[0.3182854221, 0.3237566131, 0.0135448264, -0.0000301419, -0.005506893, 0.0007816405],
+    power_on_drag="drag_burn_on.csv",
+    power_off_drag="drag_burn_off.csv",
+    center_of_mass_without_motor = 137 / 2000
 )
 
-m2500Rocket.add_motor(M2500);
+m2500Rocket.add_motor(M2500, position = 0)
 
 m2500Rocket.set_rail_buttons([-0.62, -0.96])
 
