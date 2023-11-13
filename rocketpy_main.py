@@ -64,11 +64,6 @@ M2500.info()
 m2500Rocket = Rocket(
     radius = 277 / 2000,
     mass = 14.661, # this is mass without motors
-    # inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
-    # inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
-    # distanceRocketNozzle=-0.97, # this is just a BS temp value for now - need to actually find it
-    # distanceRocketPropellant=-0.372, # this is just a BS temp value for now - need to actually find it
-    # put Drag On and Drag Off CSV files here - need to remember how to get ORK file to grab this info
     inertia=[6.8449960074, 6.850778567, 0.0556129471, -0.000050334, -0.0156079359, -0.0007228199],
     power_on_drag="drag_burn_on.csv",
     power_off_drag="drag_burn_off.csv",
@@ -109,18 +104,19 @@ def mainTrigger(p, y):
     return True if y[5] < 0 and y[2] < 152 + 289.4 else False
 
 mainParachute = m2500Rocket.add_parachute(
-    "MainParachute",
-    # the constants are current temp values - will fix later
-    trigger=drogueTrigger,
-    samplingRate=105, # still need to ask about this
-    lag=1.5, # still need to ask about this
-    noise=(0, 8.3, 0.5) # still need to ask about this
+    name = "MainParachute",
+    cd_s = 4.078,
+    trigger = drogueTrigger,
+    sampling_rate = 105,
+    lag = 1.5,
+    noise = (0, 8.3, 0.5)
 )
 
 testFlight = Flight(
     rocket = m2500Rocket,
     environment = rocketEnvironment,
     inclination = 90,
+    rail_length = 4.88,
     heading = 0
 )
 
