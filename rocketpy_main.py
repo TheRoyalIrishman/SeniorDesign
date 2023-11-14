@@ -37,7 +37,7 @@ rocketEnvironment = Environment(
 
 rocketEnvironment.set_date((tomorrow.year, tomorrow.month, tomorrow.day), "UTC")
 
-rocketEnvironment.set_atmospheric_model(type="Forecast", file="GFS")
+rocketEnvironment.set_atmospheric_model(type = "Forecast", file = "GFS")
 
 rocketEnvironment.info()
 
@@ -63,31 +63,30 @@ M2500.info()
 
 m2500Rocket = Rocket(
     radius = 277 / 2000,
-    mass=8.964, # this is just a BS temp value for now - need to actually find it
-    # inertiaI=5.95, # this is just a BS temp value for now - need to actually find it
-    # inertiaZ=0.022, # this is just a BS temp value for now - need to actually find it
-    distanceRocketNozzle=-0.97, # this is just a BS temp value for now - need to actually find it
-    distanceRocketPropellant=-0.372, # this is just a BS temp value for now - need to actually find it
-    # put Drag On and Drag Off CSV files here - need to remember how to get ORK file to grab this info
+    mass = 14.661, # this is mass without motors
+    inertia = [6.8449960074, 6.850778567, 0.0556129471, -0.000050334, -0.0156079359, -0.0007228199],
+    power_on_drag = "drag_burn_on.csv",
+    power_off_drag = "drag_burn_off.csv",
+    center_of_mass_without_motor = 137 / 2000
 )
 
-m2500Rocket.add_motor(M2500);
+m2500Rocket.add_motor(M2500, position = 0)
 
-m2500Rocket.set_rail_buttons([-0.62, -0.96])
+m2500Rocket.set_rail_buttons(upper_button_position = -0.62, lower_button_position = -0.96)
 
 # length value and distance to CM is temp - need to fix later
-rocketNoseCone = m2500Rocket.add_nose(length=0.533, kind="ogive", distanceToCM=1.85)
+rocketNoseCone = m2500Rocket.add_nose(length=0.533, kind="ogive", position = 0) # position is BS value - needs to be fixed
 
 # these are all temp BS values - will fix later once I've gotten the info from the rocket design team
 rocketFins = m2500Rocket.add_trapezoidal_fins(
-    n=4,
-    rootChord=0.382,
-    tipChord=0.104,
-    span=0.202,
-    distanceToCM=-0.57,
-    cantAngle=0,
-    radius=None,
-    airfoil=None
+    n = 4,
+    root_chord = 0.382,
+    tip_chord = 0.104,
+    span = 0.202,
+    cant_angle = 0,
+    radius = None,
+    airfoil = None,
+    position = 0 # position is BS value - needs to be fixed
 )
 
 m2500Rocket.all_info()
@@ -105,19 +104,19 @@ def mainTrigger(p, y):
     return True if y[5] < 0 and y[2] < 152 + 289.4 else False
 
 mainParachute = m2500Rocket.add_parachute(
-    "MainParachute",
-    # the constants are current temp values - will fix later
-    CdS=0.879,
-    trigger=drogueTrigger,
-    samplingRate=105, # still need to ask about this
-    lag=1.5, # still need to ask about this
-    noise=(0, 8.3, 0.5) # still need to ask about this
+    name = "MainParachute",
+    cd_s = 4.078,
+    trigger = drogueTrigger,
+    sampling_rate = 105,
+    lag = 1.5,
+    noise = (0, 8.3, 0.5)
 )
 
 testFlight = Flight(
     rocket = m2500Rocket,
     environment = rocketEnvironment,
     inclination = 90,
+    rail_length = 4.88,
     heading = 0
 )
 
