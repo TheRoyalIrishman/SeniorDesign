@@ -37,7 +37,7 @@ rocketEnvironment = Environment(
 
 rocketEnvironment.set_date((tomorrow.year, tomorrow.month, tomorrow.day), "UTC")
 
-rocketEnvironment.set_atmospheric_model(type="Forecast", file="GFS")
+rocketEnvironment.set_atmospheric_model(type = "Forecast", file = "GFS")
 
 rocketEnvironment.info()
 
@@ -64,9 +64,9 @@ M2500.info()
 m2500Rocket = Rocket(
     radius = 277 / 2000,
     mass = 14.661, # this is mass without motors
-    inertia=[6.8449960074, 6.850778567, 0.0556129471, -0.000050334, -0.0156079359, -0.0007228199],
-    power_on_drag="drag_burn_on.csv",
-    power_off_drag="drag_burn_off.csv",
+    inertia = [6.8449960074, 6.850778567, 0.0556129471, -0.000050334, -0.0156079359, -0.0007228199],
+    power_on_drag = "drag_burn_on.csv",
+    power_off_drag = "drag_burn_off.csv",
     center_of_mass_without_motor = 137 / 2000
 )
 
@@ -79,13 +79,13 @@ rocketNoseCone = m2500Rocket.add_nose(length=0.533, kind="ogive", position = 0) 
 
 # these are all temp BS values - will fix later once I've gotten the info from the rocket design team
 rocketFins = m2500Rocket.add_trapezoidal_fins(
-    n=4,
-    root_chord=0.382,
-    tip_chord=0.104,
-    span=0.202,
-    cant_angle=0,
-    radius=None,
-    airfoil=None,
+    n = 4,
+    root_chord = 0.382,
+    tip_chord = 0.104,
+    span = 0.202,
+    cant_angle = 0,
+    radius = None,
+    airfoil = None,
     position = 0 # position is BS value - needs to be fixed
 )
 
