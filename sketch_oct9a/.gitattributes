@@ -1,6 +1,0 @@
-* text=auto eol=lf
-
-*.ino eol=crlf
-*.h   eol=crlf
-
-*.ms14 -text
