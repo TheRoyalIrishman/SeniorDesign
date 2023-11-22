@@ -43,11 +43,11 @@ rocketEnvironment.info()
 
 M2500 = SolidMotor(
     thrust_source = "AeroTech_M2500T.eng",
-    burn_time = 3.9, # will burn for 3.9 seconds
+    burn_time = 4.24, # will burn for 4.24 seconds
     grain_number = 5, # num grains
     grain_separation = 0.005, # this is just a BS temp value for now - need to actually find it
     grain_density = 2400, # this is just a BS temp value for now - need to actually find it
-    grain_outer_radius= 88 / 2000, # this is just a BS temp value for now - need to actually find it
+    grain_outer_radius = 88 / 2000, # this is just a BS temp value for now - need to actually find it
     grain_initial_inner_radius = 25 / 2000, # this is just a BS temp value for now - need to actually find it
     grain_initial_height = 0.150368,
     nozzle_radius = 46.5 / 2000, # this is just a BS temp value for now - need to actually find it
@@ -91,20 +91,31 @@ rocketFins = m2500Rocket.add_trapezoidal_fins(
 
 m2500Rocket.all_info()
 
-def drogueTrigger(p, y):
+def drogueTrigger(h, p, y):
     # p = pressure
+    # h = height
     # y = [x, y, z, vx, vy, vz, e0, e1, e2, e3, w1, w2, w3]
     # activate drogue when vz < 0 m/s.
     return True if y[5] < 0 else False
 
-def mainTrigger(p, y):
+def mainTrigger(h, p, y):
     # p = pressure
+    # h = height
     # y = [x, y, z, vx, vy, vz, e0, e1, e2, e3, w1, w2, w3]
     # activate main when vz < 0 m/s and z < 800 + 1400 m (+1400 due to surface elevation).
     return True if y[5] < 0 and y[2] < 152 + 289.4 else False
 
 mainParachute = m2500Rocket.add_parachute(
     name = "MainParachute",
+    cd_s = 4.078,
+    trigger = mainTrigger,
+    sampling_rate = 105,
+    lag = 1.5,
+    noise = (0, 8.3, 0.5)
+)
+
+drogueParachute = m2500Rocket.add_parachute(
+    name = "DrogueParachute",
     cd_s = 4.078,
     trigger = drogueTrigger,
     sampling_rate = 105,
